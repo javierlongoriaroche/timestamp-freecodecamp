@@ -30,6 +30,8 @@ app.get('/api/:date?', (req, res) => {
 
   if (inputDate === '') {
       inputDate = new Date();
+  } else if (/^\d+$/.test(inputDate)) {
+      inputDate = new Date(parseInt(inputDate));
   } else {
       inputDate = new Date(inputDate);
   }
