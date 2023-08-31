@@ -25,6 +25,22 @@ app.get("/api/hello", function (req, res) {
 });
 
 
+app.get('/api/:timestamp', (req, res) => {
+  const timestamp = req.params.timestamp;
+
+  if (/^\d+$/.test(timestamp)) {
+      const unixTimestamp = parseInt(timestamp);
+      const date = new Date(unixTimestamp);
+      const utcString = date.toUTCString();
+
+      res.json({
+          unix: unixTimestamp,
+          utc: utcString
+      });
+  } else {
+      res.status(400).json({ error: 'Invalid timestamp' });
+  }
+});
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
